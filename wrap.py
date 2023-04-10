@@ -46,4 +46,11 @@ print(version)
 shutil.move(r'build\release\version.dll', 'Chrome-bin')
 
 os.rename('Chrome-bin', 'Chrome')
-os.system(f'7z.exe a build/release/Win64_{version}_{datetime.now().strftime("%Y-%m-%d")}.7z Chrome')
+shutil.move(r'Chrome', 'build/release/Chrome')
+
+# 会自动封装为zip
+env = os.getenv('GITHUB_ENV')
+with open(env, 'a') as f:
+    f.write(f'BUILD_NAME=Win64_{version}_{datetime.now().strftime("%Y-%m-%d")}')
+
+# os.system(f'7z.exe a build/release/Win64_{version}_{datetime.now().strftime("%Y-%m-%d")}.7z Chrome')
