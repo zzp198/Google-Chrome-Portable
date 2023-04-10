@@ -40,12 +40,15 @@ jobs:
       - name: build
         run: xmake
 
-      - name: setup python & warp
+      - name: setup python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
           architecture: 'x64'
           cache: 'pip'
+
+      # Install dependencies with `pip`
+      - name: warp
         run: |
           python3 -m pip install --upgrade pip setuptools wheel
           python3 -m pip install -r requirements.txt
@@ -55,6 +58,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.name }}
-          path: build/release
-
-
+          path: build/release/*.7z
