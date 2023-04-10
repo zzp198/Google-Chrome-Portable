@@ -35,20 +35,15 @@ if os.path.exists('chrome.7z'):
 
 # 获得Chorme-bin,version.dll,组装到一块就可以分发了
 version = '0.0.0.0'
-
-for i in os.listdir('Chrome-bin'):
-    if os.path.isdir(i):
+path = 'Chrome-bin'
+for i in os.listdir(path):
+    if os.path.isdir(os.path.join(path, i)):
         version = i
         break
 
 print(version)
 
-for root, dirs, files in os.walk('.'):
-    for file in files:
-        if file == 'version.dll':
-            print(os.path.join(root, file))
-            shutil.move(os.path.join(root, file), 'Chrome-bin')
+shutil.move('.\build\release\version.dll', 'Chrome-bin')
 
 os.rename('Chrome-bin', 'Chrome')
-
 os.system(f'7z.exe a build/release/Win64_{version}_{datetime.now().strftime("%Y-%m-%d")}.7z Chrome')
