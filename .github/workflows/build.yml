@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: "0 0 * * 1"
+    - cron: "0 8 * * 1"
 
 jobs:
   build:
@@ -59,4 +59,4 @@ jobs:
         with:
           name: ${{ env.BUILD_NAME }}
           path: build/release/*
-          retention-days: 30
+          retention-days: 15
