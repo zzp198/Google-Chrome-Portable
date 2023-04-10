@@ -43,7 +43,7 @@ for i in os.listdir(path):
 
 print(version)
 
-shutil.move('.\build\release\version.dll', 'Chrome-bin')
+shutil.move(r'build\release\version.dll', 'Chrome-bin')
 
 os.rename('Chrome-bin', 'Chrome')
 os.system(f'7z.exe a build/release/Win64_{version}_{datetime.now().strftime("%Y-%m-%d")}.7z Chrome')
