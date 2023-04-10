@@ -52,7 +52,7 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip setuptools wheel
           python3 -m pip install -r requirements.txt
-          python3 warp.py
+          python3 wrap.py
 
       - name: upload
         uses: actions/upload-artifact@v3
