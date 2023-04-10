@@ -6,13 +6,15 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  schedule:
+    - cron: "* * */14 * *"
 
 jobs:
   build:
     strategy:
       matrix:
         include: [
-            { name: windows_x64, arch: x64 },
+          { name: windows_x64, arch: x64 },
         ]
 
     name: ${{ matrix.name }}
@@ -20,26 +22,39 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: checkout
-      uses: actions/checkout@v2
-      with:
-        submodules: 'true'
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: 'true'
 
-    - name: setup VC-LTL
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: nuget install VC-LTL
+      - name: setup VC-LTL
+        working-directory: ${{env.GITHUB_WORKSPACE}}
+        run: nuget install VC-LTL
 
-    - name: setup xmake
-      uses: xmake-io/github-action-setup-xmake@v1
+      - name: setup xmake
+        uses: xmake-io/github-action-setup-xmake@v1
 
-    - name: configure
-      run: xmake f -a ${{ matrix.arch }}
+      - name: configure
+        run: xmake f -a ${{ matrix.arch }}
 
-    - name: build
-      run: xmake
+      - name: build
+        run: xmake
 
-    - name: upload
-      uses: actions/upload-artifact@v3
-      with:
-        name: ${{ matrix.name }}
-        path: build/release
+      - name: setup python & warp
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          architecture: 'x64'
+          cache: 'pip'
+        run: |
+          python3 -m pip install --upgrade pip setuptools wheel
+          python3 -m pip install -r requirements.txt
+          python3 warp.py
+
+      - name: upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.name }}
+          path: build/release
+
+
