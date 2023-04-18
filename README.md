@@ -2,7 +2,7 @@
 
 注意:
 Chrome爆出了0day漏洞，详细见https://zhuanlan.kanxue.com/article-21181.htm
-请使用老版本的更新版本到112.0.5615.121，对于此项目actions日期为2023-04-17及后续日期的build release.
+请使用老版本的更新版本到112.0.5615.121，对应此项目actions日期为2023-04-17及后续日期的build release.
 
 # 功能
 
