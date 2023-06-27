@@ -42,6 +42,8 @@ for i in os.listdir(path):
         break
 
 print(version)
+if version = '0.0.0.0':
+    exit(1)
 
 shutil.move(r'build\release\version.dll', 'Chrome-bin')
 
