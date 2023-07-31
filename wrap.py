@@ -47,7 +47,7 @@ if version == '0.0.0.0':
 
 shutil.move(r'build\release\version.dll', 'Chrome-bin')
 
-os.rename('Chrome-bin', 'Chrome')
+os.rename(r'Chrome-bin', 'Chrome')
 shutil.move(r'Chrome', 'build/release/Chrome')
 
 # 会自动封装为zip
