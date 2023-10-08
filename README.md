@@ -1,9 +1,5 @@
 屠龙者终成恶龙，再见了Edge. 此项目在前人的肩膀上，加入了自己喜欢的定制。
 
-注意:
-Chrome爆出了0day漏洞，详细见https://zhuanlan.kanxue.com/article-21181.htm
-请使用老版本的更新版本到112.0.5615.121，对应此项目actions日期为2023-04-17及后续日期的build release.
-
 # 功能
 
 - ~~双击关闭标签页~~
