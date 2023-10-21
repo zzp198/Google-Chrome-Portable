@@ -1,13 +1,15 @@
 name: build
 
-on:
-  workflow_dispatch:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  schedule:
-    - cron: "0 8 * * 1"
+on: [ workflow_dispatch ]
+
+# on:
+  # workflow_dispatch:
+  # push:
+    # branches: [ main ]
+  # pull_request:
+    # branches: [ main ]
+  # schedule:
+    # - cron: "0 8 * * 1"
 
 jobs:
   build:
