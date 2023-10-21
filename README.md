@@ -1,3 +1,6 @@
+**Google Chrome 118版本开始，此插件已失效，如想使用请下载117版本。**
+**https://github.com/zzp198/Google-Chrome-Portable/suites/17021789845/artifacts/972078154**
+
 屠龙者终成恶龙，再见了Edge. 此项目在前人的肩膀上，加入了自己喜欢的定制。
 
 # 功能
