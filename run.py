@@ -18,8 +18,8 @@ with HTMLSession() as session:
             f.write(ch)
         f.close()
 
-os.system('7zzs x chrome.7z.exe')
-os.system('7zzs x chrome.7z')
+os.system('./7zzs x chrome.7z.exe')
+os.system('./7zzs x chrome.7z')
 
 # 获得Chrime-bin,version.dll,组装到一块就可以分发了
 version = '0.0.0.0'
