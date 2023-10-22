@@ -15,14 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4.7.1
+        with:
+          python-version: '3.10'
       - run: ls
-
       - name: prepare env
         run: |
           python3 -m pip --upgrade pip setuptools wheel
           python3 -m pip install -r requirements.txt
           python3 run.py
-
       - name: upload
         uses: actions/upload-artifact@v3
         with:
