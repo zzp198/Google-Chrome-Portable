@@ -18,6 +18,7 @@ with HTMLSession() as session:
             f.write(ch)
         f.close()
 
+os.system('chmod +x ./7zzs')
 os.system('./7zzs x chrome.7z.exe')
 os.system('./7zzs x chrome.7z')
 
