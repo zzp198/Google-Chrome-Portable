@@ -20,7 +20,6 @@ jobs:
       - run: ls
       - name: prepare env
         run: |
-          python3 -m pip --upgrade pip setuptools wheel
           python3 -m pip install -r requirements.txt
           python3 run.py
       - name: upload
