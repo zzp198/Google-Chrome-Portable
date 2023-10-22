@@ -1,60 +1,27 @@
 name: build
 
-on: [ workflow_dispatch ]
-
-# on:
-  # workflow_dispatch:
-  # push:
-    # branches: [ main ]
-  # pull_request:
-    # branches: [ main ]
-  # schedule:
-    # - cron: "0 8 * * 1"
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: "0 8 * * 1"
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        include: [
-          { name: windows_x64, arch: x64 },
-        ]
-
-    name: ${{ matrix.name }}
-
-    runs-on: windows-latest
-
+  Warp_Chrome:
+    runs-on: ubuntu-latest
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
-        with:
-          submodules: 'true'
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4.7.1
+      - run: ls
 
-      - name: setup VC-LTL
-        working-directory: ${{env.GITHUB_WORKSPACE}}
-        run: nuget install VC-LTL
-
-      - name: setup xmake
-        uses: xmake-io/github-action-setup-xmake@v1
-
-      - name: configure
-        run: xmake f -a ${{ matrix.arch }}
-
-      - name: build
-        run: xmake
-
-      - name: setup python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          architecture: 'x64'
-          cache: 'pip'
-
-      # Install dependencies with `pip`
-      - name: warp
+      - name: prepare env
         run: |
-          python3 -m pip install --upgrade pip setuptools wheel
+          python3 -m pip --upgrade pip setuptools wheel
           python3 -m pip install -r requirements.txt
-          python3 wrap.py
+          python3 run.py
 
       - name: upload
         uses: actions/upload-artifact@v3
