@@ -1,30 +1,34 @@
-name: build
+name: Build and Release
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  schedule:
-    - cron: "0 8 * * 1"
+    tags:
+      - 'v*'
 
 jobs:
-  Warp_Chrome:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4.7.1
+      - uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-      - run: ls
-      - name: prepare env
-        run: |
+      - run: |
           python3 -m pip install -r requirements.txt
           python3 run.py
-      - name: upload
-        uses: actions/upload-artifact@v4
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/create-release@v1
         with:
-          name: ${{ env.BUILD_NAME }}
-          path: build/release/*
-          retention-days: 15
+          tag_name: v${{ github.run_date | format: "%Y%m%d%H%M" }}
+          release_name: Release ${{ github.run_date | format: "%Y%m%d%H%M" }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/release/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
