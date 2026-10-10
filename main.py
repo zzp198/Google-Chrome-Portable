@@ -29,10 +29,14 @@ name = dom.getElementsByTagName("action")[0].getAttribute("run")
 
 print(url, name)
 
-response = requests.get(url + name)
+response = requests.get(url + name, stream=True)
+print(response.headers)
 
-with open("chrome.7z.exe", "wb") as file:
-    file.write(response.content)
+with open("chrome.7z.exe", "wb") as f:
+    for chunk in response.iter_content(chunk_size=32 * 1024):  # 32KB分块
+        if chunk:
+            f.write(chunk)
+            f.flush()
 
 os.system('chmod +x ./7zzs')
 os.system('./7zzs x chrome.7z.exe')
@@ -61,5 +65,3 @@ shutil.move(r'Chrome', 'build/release/Chrome')
 env = os.getenv('GITHUB_ENV')
 with open(env, 'a') as f:
     f.write(f'BUILD_NAME=Win64_{version}_{datetime.now().strftime("%Y-%m-%d")}')
-
-# os.system(f'7z.exe a build/release/Win64_{version}_{datetime.now().strftime("%Y-%m-%d")}.7z Chrome')
