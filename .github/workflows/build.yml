@@ -20,7 +20,7 @@ jobs:
       - run: ls
       - name: prepare env
         run: |
-          python3 -m pip install -r requests
+          python3 -m pip install requests
           python3 main.py
       - name: upload
         uses: actions/upload-artifact@v7.0.2
