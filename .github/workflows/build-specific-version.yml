@@ -1,0 +1,37 @@
+name: Build Specific Chrome Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      chrome_version:
+        description: 'Chrome version (e.g., 132.0.6834.160)'
+        required: true
+        type: string
+      arch:
+        description: 'Architecture'
+        required: true
+        type: choice
+        options:
+          - x64
+          - x86
+        default: x64
+
+jobs:
+  Build_Chrome_Version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4.7.1
+        with:
+          python-version: '3.10'
+      - run: ls
+      - name: prepare env
+        run: |
+          python3 -m pip install -r requirements.txt
+          python3 run.py "${{ github.event.inputs.chrome_version }}" "${{ github.event.inputs.arch }}"
+      - name: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.BUILD_NAME }}
+          path: build/release/*
+          retention-days: 30
